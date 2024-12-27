@@ -12,7 +12,7 @@ from threading import Thread
 import shutil
 import time
 
-pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', 'tesseract')
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/tesseract')
 
 
 app = Flask(__name__)
