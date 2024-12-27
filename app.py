@@ -12,19 +12,31 @@ from threading import Thread
 import shutil
 import time
 import subprocess
+import shutil
 
 def check_tesseract():
     try:
-        subprocess.run(['tesseract', '--version'], capture_output=True, check=True)
-        print("Tesseract is installed")
+        # Try multiple ways to find tesseract
+        tesseract_path = shutil.which('tesseract')
+        if tesseract_path:
+            print(f"Found tesseract at: {tesseract_path}")
+        else:
+            print("Tesseract not found in PATH")
+            
+        # Try running tesseract
+        result = subprocess.run(['tesseract', '--version'], 
+                              capture_output=True, 
+                              text=True)
+        print(f"Tesseract version output: {result.stdout}")
         return True
     except Exception as e:
-        print(f"Tesseract error: {str(e)}")
+        print(f"Detailed Tesseract error: {str(e)}")
+        print(f"Current PATH: {os.environ.get('PATH', 'Not set')}")
         return False
 
-# Add this to your app.py, before the routes
-if not check_tesseract():
-    print("Warning: Tesseract is not properly installed")
+# Add this near the start of your app
+print("Checking Tesseract installation...")
+check_tesseract()
 
 pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/tesseract')
 
@@ -190,6 +202,29 @@ def upload_file():
             return f'Conversion error: {str(e)}', 500
             
     return 'Unsupported file type', 400
+
+@app.route('/system-check')
+def system_check():
+    try:
+        # Check tesseract
+        tesseract_version = subprocess.run(['tesseract', '--version'], 
+                                         capture_output=True, 
+                                         text=True)
+        
+        # Check poppler
+        poppler_version = subprocess.run(['pdftoppm', '-v'], 
+                                       capture_output=True, 
+                                       text=True, 
+                                       stderr=subprocess.STDOUT)
+        
+        return {
+            'tesseract_version': tesseract_version.stdout,
+            'poppler_version': poppler_version.stdout,
+            'PATH': os.environ.get('PATH', 'Not set'),
+            'TESSERACT_PATH': os.environ.get('TESSERACT_PATH', 'Not set')
+        }
+    except Exception as e:
+        return {'error': str(e)}
 
 if __name__ == '__main__':
     # Add these lines before app.run
