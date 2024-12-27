@@ -7,10 +7,13 @@ import pytesseract
 import pandas as pd
 from docx import Document
 from pdf2image import convert_from_path
+from datetime import datetime, timedelta
+from threading import Thread
+import shutil
+import time
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-os.environ["PATH"] += os.pathsep + r'C:\poppler\Library\bin'
-os.environ["POPPLER_PATH"] = r'C:\poppler\Library\bin'
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', 'tesseract')
+
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +32,31 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def cleanup_old_files():
+    """Remove files older than 10 minutes"""
+    try:
+        current_time = datetime.now()
+        for folder in [UPLOAD_FOLDER, CONVERTED_FOLDER]:
+            if os.path.exists(folder):
+                for filename in os.listdir(folder):
+                    filepath = os.path.join(folder, filename)
+                    file_time = datetime.fromtimestamp(os.path.getmtime(filepath))
+                    if current_time - file_time > timedelta(minutes=10):
+                        try:
+                            if os.path.isfile(filepath):
+                                os.remove(filepath)
+                            elif os.path.isdir(filepath):
+                                shutil.rmtree(filepath)
+                        except Exception as e:
+                            print(f"Error removing {filepath}: {str(e)}")
+    except Exception as e:
+        print(f"Error in cleanup: {str(e)}")
+
+def periodic_cleanup():
+    while True:
+        cleanup_old_files()
+        time.sleep(300)
 
 def convert_pdf_to_word(pdf_path, output_path):
     try:
@@ -97,6 +125,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    cleanup_old_files()
     # Define max file size (20MB)
     MAX_FILE_SIZE = 20 * 1024 * 1024  # 20MB in bytes
     
@@ -149,4 +178,10 @@ def upload_file():
     return 'Unsupported file type', 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Add these lines before app.run
+    cleanup_thread = Thread(target=periodic_cleanup, daemon=True)
+    cleanup_thread.start()
+    
+    # Your existing app.run line
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
