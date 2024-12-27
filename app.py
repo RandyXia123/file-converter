@@ -11,6 +11,20 @@ from datetime import datetime, timedelta
 from threading import Thread
 import shutil
 import time
+import subprocess
+
+def check_tesseract():
+    try:
+        subprocess.run(['tesseract', '--version'], capture_output=True, check=True)
+        print("Tesseract is installed")
+        return True
+    except Exception as e:
+        print(f"Tesseract error: {str(e)}")
+        return False
+
+# Add this to your app.py, before the routes
+if not check_tesseract():
+    print("Warning: Tesseract is not properly installed")
 
 pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/tesseract')
 
