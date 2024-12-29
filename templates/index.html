@@ -199,6 +199,7 @@
                     <div class="upload-text">or Drag and Drop</div>
                     <input type="file" name="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.gif" class="hidden-input">
                 </div>
+                <div id="selectedFile" class="selected-file"></div>
             </div>
             <div class="form-group">
                 <label for="outputFormat">Convert to:</label>
@@ -352,9 +353,14 @@
             
             if (e.dataTransfer.files.length) {
                 fileInput.files = e.dataTransfer.files;
-                // Trigger change event
-                const changeEvent = new Event('change');
-                fileInput.dispatchEvent(changeEvent);
+                const file = e.dataTransfer.files[0];
+                const selectedFileDiv = document.getElementById('selectedFile');
+                
+                if (file) {
+                    selectedFileDiv.textContent = `Selected file: ${file.name}`;
+                    selectedFileDiv.style.display = 'block';
+                    updateMessage('info', 'Click "Upload and Convert" to process the file');
+                }
             }
         });
     </script>
