@@ -231,10 +231,21 @@
         // File input change handler
         document.getElementById('fileInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
+            const selectedFileDiv = document.getElementById('selectedFile');
+            
             if (file && file.size > MAX_FILE_SIZE) {
                 updateMessage('error', 'File size exceeds 20MB limit');
                 this.value = ''; // Clear the file input
+                selectedFileDiv.style.display = 'none';
                 return;
+            }
+            
+            if (file) {
+                selectedFileDiv.textContent = `Selected file: ${file.name}`;
+                selectedFileDiv.style.display = 'block';
+                updateMessage('info', 'Click "Upload and Convert" to process the file');
+            } else {
+                selectedFileDiv.style.display = 'none';
             }
         });
 
@@ -332,12 +343,6 @@
             fileInput.click();
         });
 
-        // Add this new event listener for the file input
-        fileInput.addEventListener('change', () => {
-            // Trigger form submission when file is selected
-            document.getElementById('uploadForm').dispatchEvent(new Event('submit'));
-        });
-
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -349,11 +354,12 @@
 
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             uploadArea.classList.remove('dragover');
             
             if (e.dataTransfer.files.length) {
-                fileInput.files = e.dataTransfer.files;
                 const file = e.dataTransfer.files[0];
+                fileInput.files = e.dataTransfer.files;
                 const selectedFileDiv = document.getElementById('selectedFile');
                 
                 if (file) {
