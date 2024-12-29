@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request, send_file
 from flask_cors import CORS
 import os
+os.environ["TESSERACT_PATH"] = "/usr/bin/tesseract"
+os.environ["PATH"] += os.pathsep + os.environ["TESSERACT_PATH"]
+print(f"System PATH: {os.environ.get('PATH')}")
+print(f"Tesseract PATH: {os.getenv('TESSERACT_PATH')}")
+
 from pdf2docx import Converter
 from PIL import Image
 import pytesseract
@@ -42,7 +47,10 @@ pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/te
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/upload": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
+    r"/system-check": {"origins": ["https://file-converter-1-95ml.onrender.com"]}
+})
 
 # Create folders
 UPLOAD_FOLDER = 'uploads'
