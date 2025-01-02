@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, send_from_directory
 from flask_cors import CORS
 import os
 os.environ["TESSERACT_PATH"] = "/usr/bin/tesseract"
@@ -49,7 +49,9 @@ pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/te
 app = Flask(__name__)
 CORS(app, resources={
     r"/upload": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
-    r"/system-check": {"origins": ["https://file-converter-1-95ml.onrender.com"]}
+    r"/system-check": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
+    r"/sitemap.xml": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
+    r"/robots.txt": {"origins": ["https://file-converter-1-95ml.onrender.com"]}
 })
 
 # Create folders
@@ -233,6 +235,14 @@ def system_check():
         }
     except Exception as e:
         return {'error': str(e)}
+
+@app.route('/sitemap.xml')
+def serve_sitemap():
+    return send_from_directory('templates', 'sitemap.xml')
+
+@app.route('/robots.txt')
+def serve_robots():
+    return send_from_directory('templates', 'robots.txt')
 
 if __name__ == '__main__':
     # Add these lines before app.run
