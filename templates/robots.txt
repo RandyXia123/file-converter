@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /dev/
+
+# Allow search engines to crawl JavaScript and CSS files
+Allow: *.js
+Allow: *.css
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+
+# Sitemap location
+Sitemap: https://file-converter-1-95ml.onrender.com/sitemap.xml
