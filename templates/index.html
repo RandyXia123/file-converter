@@ -25,190 +25,184 @@
     <!-- Existing styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
     <style>
+        :root {
+            --primary-color: #2eaadc;
+            --text-color: #37352f;
+            --bg-color: #ffffff;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            max-width: 1000px;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 800px;
             margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
             padding: 40px 20px;
-            background-color: #ffffff;
-            color: #37352f;
-            line-height: 1.5;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .container {
-            background: #ffffff;
+        .feature-card {
+            background: #fff;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, 
-                        rgba(15, 15, 15, 0.1) 0px 2px 4px;
-            padding: 32px;
-            transition: transform 0.2s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
-        .container:hover {
-            transform: translateY(-2px);
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
 
-        h2 {
-            font-size: 2.4em;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: #37352f;
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
         }
 
-        p {
-            color: #6b6b6b;
-            font-size: 1.1em;
-            margin-bottom: 24px;
-        }
-
-        .file-types {
-            background: #f7f6f3;
-            border-radius: 6px;
-            padding: 12px 16px;
-            color: #6b6b6b;
-            font-size: 0.95em;
-            margin: 20px 0;
-        }
-
-        .form-group {
-            margin: 24px 0;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            background: #f7f6f3;
-            border-radius: 6px;
-            border: 1px solid #e6e6e6;
-            font-family: 'Inter', sans-serif;
-            color: #37352f;
-        }
-
-        input[type="file"]::-webkit-file-upload-button {
-            font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            border: 1px solid #e6e6e6;
-            border-radius: 4px;
-            padding: 8px 12px;
-            margin-right: 12px;
-            color: #37352f;
-            cursor: pointer;
-        }
-
-        input[type="file"]::file-selector-button {
-            font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            border: 1px solid #e6e6e6;
-            border-radius: 4px;
-            padding: 8px 12px;
-            margin-right: 12px;
-            color: #37352f;
-            cursor: pointer;
-        }
-
-        select {
-            width: 200px;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #e6e6e6;
-            background: #ffffff;
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            color: #37352f;
-        }
-
-        button {
-            background-color: #2eaadc;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #2591bb;
-        }
-
-        .download-button {
-            display: none;
-            background-color: #2eaadc;
-        }
-
-        .spinner {
-            display: none;
-            width: 32px;
-            height: 32px;
-            margin: 20px auto;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #2eaadc;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .message {
-            margin-top: 20px;
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 0.95em;
-        }
-
-        .message.success {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .message.error {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-
-        .message.info {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .upload-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .upload-area {
-            border: 2px dashed #e6e6e6;
+            border: 2px dashed var(--primary-color);
             border-radius: 12px;
             padding: 40px;
             text-align: center;
-            background: #ffffff;
+            background: #f8f9fa;
             transition: all 0.2s ease;
             cursor: pointer;
             margin: 20px 0;
         }
 
-        .upload-area:hover, .upload-area.dragover {
-            border-color: #2eaadc;
-            background: #f7f6f3;
+        .upload-area:hover {
+            background: #f0f1f2;
+            transform: translateY(-2px);
         }
 
-        .upload-icon {
-            font-size: 24px;
-            color: #2eaadc;
-            margin-bottom: 10px;
+        button[type="submit"] {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 20px;
         }
 
-        .upload-text {
-            color: #6b6b6b;
+        button[type="submit"]:hover {
+            background: #2591bb;
+        }
+
+        .download-button,
+        .share-button {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
             margin: 10px 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .hidden-input {
-            display: none;
+        .download-button {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .share-button {
+            background: #f8f9fa;
+            color: var(--text-color);
+            border: 1px solid #dee2e6;
+        }
+
+        .download-button:hover {
+            background: #2591bb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .share-button:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Add icons to buttons */
+        .download-button::before,
+        .share-button::before {
+            margin-right: 8px;
+            font-family: sans-serif;
+        }
+
+        .download-button::before {
+            content: "⬇️";
+        }
+
+        .share-button::before {
+            content: "🔗";
+        }
+
+        /* Toast message styling */
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
 <body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1 class="hero-title">Free File Converter Online <span style="color: var(--primary-color)">✧</span></h1>
+        <p class="hero-subtitle">The easiest way to convert your files. Transform PDFs, images, and more in seconds - no software installation needed!</p>
+    </div>
+
     <div class="upload-form">
         <h2>File Upload and Convert</h2>
         <p>This tool allows you to upload a PDF, PNG, JPG, JPEG, or GIF file and convert it to a Word (DOCX), Excel (XLSX), or CSV file.</p>
@@ -216,8 +210,8 @@
             <div class="form-group">
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-icon">📎</div>
-                    <div class="upload-text">Upload Document</div>
-                    <div class="upload-text">or Drag and Drop</div>
+                    <div class="upload-text">Drop files here</div>
+                    <div class="upload-text">or click to upload</div>
                     <input type="file" name="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.gif" class="hidden-input">
                 </div>
                 <div id="selectedFile" class="selected-file"></div>
@@ -235,6 +229,26 @@
         <div id="spinner" class="spinner"></div>
         <div id="message" class="message"></div>
         <button id="downloadButton" class="download-button">Download Converted File</button>
+        <button id="shareButton" class="share-button">Share This Tool</button>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Lightning Fast</h3>
+            <p>Convert your files in seconds with our optimized processing system.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure & Private</h3>
+            <p>Your files are automatically deleted after conversion. We prioritize your privacy.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>No Installation</h3>
+            <p>100% online converter - no software download required.</p>
+        </div>
     </div>
 
     <script>
@@ -389,6 +403,43 @@
                     updateMessage('info', 'Click "Upload and Convert" to process the file');
                 }
             }
+        });
+
+        // Share button functionality
+        document.getElementById('shareButton').addEventListener('click', async () => {
+            const url = window.location.href;
+            
+            // Create toast message element
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            
+            try {
+                if (navigator.share) {
+                    // Use native share if available (mobile devices)
+                    await navigator.share({
+                        title: 'Free File Converter Online',
+                        text: 'Check out this free file converter tool!',
+                        url: url
+                    });
+                    toast.textContent = 'Shared successfully!';
+                } else {
+                    // Fallback to clipboard copy
+                    await navigator.clipboard.writeText(url);
+                    toast.textContent = 'Link copied to clipboard!';
+                }
+            } catch (err) {
+                toast.textContent = 'Failed to share';
+            }
+            
+            // Show toast message
+            document.body.appendChild(toast);
+            toast.style.display = 'block';
+            
+            // Remove toast after animation
+            setTimeout(() => {
+                toast.style.display = 'none';
+                document.body.removeChild(toast);
+            }, 2000);
         });
     </script>
 </body>
