@@ -255,7 +255,7 @@
         let convertedFileUrl = null;
         let convertedFileName = null;
 
-        const MAX_FILE_SIZE = 200 * 1024 * 1024; // 20MB in bytes
+        const MAX_FILE_SIZE = 200 * 1024 * 1024; // 200MB in bytes
         
         function updateMessage(type, text) {
             const messageElement = document.getElementById('message');
@@ -318,10 +318,10 @@
             console.log('File size:', file.size);
             console.log('Output format:', document.getElementById('outputFormat').value);
             
-            console.log('Server URL:', 'https://file-converter-1-95ml.onrender.com/upload');
+            console.log('Server URL:', 'https://simplepdftoword.com/upload');
 
             try {
-                const response = await fetch('https://file-converter-1-95ml.onrender.com/upload', {
+                const response = await fetch('https://simplepdftoword.com/upload', {
                     method: 'POST',
                     body: formData,
                     headers: {
