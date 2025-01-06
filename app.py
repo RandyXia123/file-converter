@@ -48,10 +48,10 @@ pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_PATH', '/usr/bin/te
 
 app = Flask(__name__)
 CORS(app, resources={
-    r"/upload": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
-    r"/system-check": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
-    r"/sitemap.xml": {"origins": ["https://file-converter-1-95ml.onrender.com"]},
-    r"/robots.txt": {"origins": ["https://file-converter-1-95ml.onrender.com"]}
+    r"/upload": {"origins": ["https://www.simplepdftoword.com"]},
+    r"/system-check": {"origins": ["https://www.simplepdftoword.com"]},
+    r"/sitemap.xml": {"origins": ["https://www.simplepdftoword.com"]},
+    r"/robots.txt": {"origins": ["https://www.simplepdftoword.com"]}
 })
 
 # Create folders
@@ -70,7 +70,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def cleanup_old_files():
-    """Remove files older than 10 minutes"""
+    """Remove files older than 1 minute"""
     try:
         current_time = datetime.now()
         for folder in [UPLOAD_FOLDER, CONVERTED_FOLDER]:
@@ -78,7 +78,7 @@ def cleanup_old_files():
                 for filename in os.listdir(folder):
                     filepath = os.path.join(folder, filename)
                     file_time = datetime.fromtimestamp(os.path.getmtime(filepath))
-                    if current_time - file_time > timedelta(minutes=10):
+                    if current_time - file_time > timedelta(minutes=2):  # Changed from 10 to 2 minute
                         try:
                             if os.path.isfile(filepath):
                                 os.remove(filepath)
@@ -92,7 +92,7 @@ def cleanup_old_files():
 def periodic_cleanup():
     while True:
         cleanup_old_files()
-        time.sleep(300)
+        time.sleep(120)  # Changed from 300 to 120 seconds to check more frequently
 
 def convert_pdf_to_word(pdf_path, output_path):
     try:
@@ -161,9 +161,9 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    cleanup_old_files()
+    cleanup_old_files()  # Run cleanup before processing new file
     # Define max file size (20MB)
-    MAX_FILE_SIZE = 20 * 1024 * 1024  # 20MB in bytes
+    MAX_FILE_SIZE = 200 * 1024 * 1024  # 20MB in bytes
     
     if 'file' not in request.files:
         return 'Please select a file', 400
@@ -180,7 +180,7 @@ def upload_file():
     file.seek(0)  # Reset file pointer to beginning
     
     if file_size > MAX_FILE_SIZE:
-        return 'File size exceeds 20MB limit', 400
+        return 'File size exceeds 200MB limit', 400
 
     if file and allowed_file(file.filename):
         # Save original file
@@ -245,7 +245,7 @@ def serve_robots():
     return send_from_directory('templates', 'robots.txt')
 
 if __name__ == '__main__':
-    # Add these lines before app.run
+    # Start cleanup thread
     cleanup_thread = Thread(target=periodic_cleanup, daemon=True)
     cleanup_thread.start()
     

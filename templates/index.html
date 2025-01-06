@@ -13,14 +13,14 @@
     <!-- Open Graph tags (for social media sharing) -->
     <meta property="og:title" content="Online File Converter Tool">
     <meta property="og:description" content="Free online tool to convert files between multiple formats instantly">
-    <meta property="og:url" content="https://file-converter-1-95ml.onrender.com/">
+    <meta property="og:url" content="https://www.simplepdftoword.com/">
     <meta property="og:type" content="website">
     
     <!-- Additional useful meta tags -->
     <meta name="robots" content="index,follow">
     <meta name="author" content="Qinghao Xia">
     <meta name="google-site-verification" content="zDhVSs_ZoZWOkCdcB0RxMkC41Ci9lfPGi97JEHjdy6I">
-    <link rel="canonical" href="https://file-converter-1-95ml.onrender.com/">
+    <link rel="canonical" href="https://www.simplepdftoword.com/">
 
     <!-- Existing styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
@@ -204,8 +204,8 @@
     </div>
 
     <div class="upload-form">
-        <h2>File Upload and Convert</h2>
-        <p>This tool allows you to upload a PDF, PNG, JPG, JPEG, or GIF file and convert it to a Word (DOCX), Excel (XLSX), or CSV file.</p>
+        <h2>File Uploader and Extractor</h2>
+        <p>This tool extracts text from any PDF file, including scanned documents with OCR support and Supports PDFs up to 200 MB</p>
         <form id="uploadForm">
             <div class="form-group">
                 <div class="upload-area" id="uploadArea">
@@ -236,8 +236,8 @@
     <div class="features-grid">
         <div class="feature-card">
             <div class="feature-icon">🚀</div>
-            <h3>Lightning Fast</h3>
-            <p>Convert your files in seconds with our optimized processing system.</p>
+            <h3>Free</h3>
+            <p>No subscriptions or hidden costs. </p>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔒</div>
@@ -255,7 +255,7 @@
         let convertedFileUrl = null;
         let convertedFileName = null;
 
-        const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB in bytes
+        const MAX_FILE_SIZE = 200 * 1024 * 1024; // 20MB in bytes
         
         function updateMessage(type, text) {
             const messageElement = document.getElementById('message');
@@ -269,7 +269,7 @@
             const selectedFileDiv = document.getElementById('selectedFile');
             
             if (file && file.size > MAX_FILE_SIZE) {
-                updateMessage('error', 'File size exceeds 20MB limit');
+                updateMessage('error', 'File size exceeds 200MB limit');
                 this.value = ''; // Clear the file input
                 selectedFileDiv.style.display = 'none';
                 return;
