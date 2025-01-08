@@ -105,21 +105,16 @@ def convert_pdf_to_word(pdf_path, output_path):
         images = convert_from_path(pdf_path)
         doc = Document()
         
-        def process_page(image):
-            # Optimize OCR settings for better speed/accuracy balance
-            custom_config = r'--oem 3 --psm 1 -c tessedit_create_pdf=1 -c textord_heavy_nr=1'
-            
-            # Convert to grayscale for better OCR
-            image = image.convert('L')
-            
-            return pytesseract.image_to_string(
-                image,
-                config=custom_config,
-                lang='eng'
-            )
+        # Limit the number of workers to prevent memory overflow
+        max_workers = min(multiprocessing.cpu_count(), 2)  # Limit to 2 workers
         
-        # Use parallel processing
-        with ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as executor:
+        def process_page(image):
+            custom_config = r'--oem 3 --psm 1'  # Simplified config
+            image = image.convert('L')
+            return pytesseract.image_to_string(image, config=custom_config, lang='eng')
+        
+        # Process in smaller batches
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
             text_results = list(executor.map(process_page, images))
         
         # Add processed text to document
