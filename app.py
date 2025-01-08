@@ -105,27 +105,22 @@ def convert_pdf_to_word(pdf_path, output_path):
         images = convert_from_path(pdf_path)
         doc = Document()
         
-        # Limit the number of workers to prevent memory overflow
-        max_workers = min(multiprocessing.cpu_count(), 2)  # Limit to 2 workers
+        # Use number of CPU cores for parallel processing
+        num_workers = multiprocessing.cpu_count()
         
-        def process_page(image):
-            custom_config = r'--oem 3 --psm 1'  # Simplified config
-            image = image.convert('L')
-            return pytesseract.image_to_string(image, config=custom_config, lang='eng')
-        
-        # Process in smaller batches
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Process pages in parallel
+        with ThreadPoolExecutor(max_workers=num_workers) as executor:
             text_results = list(executor.map(process_page, images))
         
         # Add processed text to document
         for i, text in enumerate(text_results):
             if text.strip():
                 doc.add_paragraph(text)
-            if i < len(text_results) - 1:  # Don't add page break after last page
+            # Only add page break if not the last page
+            if i < len(text_results) - 1:
                 doc.add_page_break()
         
         doc.save(output_path)
-        
     except Exception as e:
         raise Exception(f"PDF to Word conversion failed: {str(e)}")
 
