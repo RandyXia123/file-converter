@@ -18,6 +18,8 @@ import shutil
 import time
 import subprocess
 import shutil
+from concurrent.futures import ThreadPoolExecutor
+import multiprocessing
 
 def check_tesseract():
     try:
@@ -94,29 +96,41 @@ def periodic_cleanup():
         cleanup_old_files()
         time.sleep(120)  # Changed from 300 to 120 seconds to check more frequently
 
+def process_page(page_image):
+    return pytesseract.image_to_string(page_image)
+
 def convert_pdf_to_word(pdf_path, output_path):
     try:
         # Convert PDF to images
         images = convert_from_path(pdf_path)
-        
-        # Create Word document
         doc = Document()
         
-        # Process each page
-        for image in images:
-            # Extract text using OCR
-            text = pytesseract.image_to_string(image)
+        def process_page(image):
+            # Optimize OCR settings for better speed/accuracy balance
+            custom_config = r'--oem 3 --psm 1 -c tessedit_create_pdf=1 -c textord_heavy_nr=1'
             
-            # Add text to document
-            if text.strip():  # Only add non-empty text
+            # Convert to grayscale for better OCR
+            image = image.convert('L')
+            
+            return pytesseract.image_to_string(
+                image,
+                config=custom_config,
+                lang='eng'
+            )
+        
+        # Use parallel processing
+        with ThreadPoolExecutor(max_workers=multiprocessing.cpu_count()) as executor:
+            text_results = list(executor.map(process_page, images))
+        
+        # Add processed text to document
+        for i, text in enumerate(text_results):
+            if text.strip():
                 doc.add_paragraph(text)
-            
-            # Add page break between pages
-            if image != images[-1]:  # Don't add page break after last page
+            if i < len(text_results) - 1:  # Don't add page break after last page
                 doc.add_page_break()
         
-        # Save the document
         doc.save(output_path)
+        
     except Exception as e:
         raise Exception(f"PDF to Word conversion failed: {str(e)}")
 
