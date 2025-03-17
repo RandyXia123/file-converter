@@ -2,18 +2,14 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11542101470"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-11542101470');
-        
-        // Add conversion tracking
-        gtag('event', 'conversion', {
-            'send_to': 'AW-11542101470/a_EqCL7h4YEaEN772f8q'
-        });
-    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N7LW4SBEZM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-N7LW4SBEZM');
+</script>
 
     <!-- Basic meta tags -->
     <meta charset="UTF-8">
@@ -33,7 +29,7 @@
     <!-- Additional useful meta tags -->
     <meta name="robots" content="index,follow">
     <meta name="author" content="Qinghao Xia">
-    <meta name="google-site-verification" content="26iK0Clq1I522003vMVHRqrZayaOYkI2klMmwjygLzY" />
+    <meta name="google-site-verification" content="7P9jxdxCvCMxOIvywShSy-6VhaoyyH3ekf3fcKDW9i4" />
     <link rel="canonical" href="https://www.simplepdftoword.com/">
 
     <!-- Existing styles -->
@@ -208,6 +204,148 @@
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        
+        /* SEO Content Styling */
+        .seo-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #37352f;
+        }
+        
+        .seo-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .seo-content h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .seo-content h3 {
+            font-size: 1.4em;
+            color: #444;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .seo-content h4 {
+            font-size: 1.1em;
+            color: #555;
+            margin: 15px 0 8px;
+        }
+        
+        .seo-content p, .seo-content li {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .seo-content ul, .seo-content ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* File Preview Container Styling */
+        .file-preview-container {
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: white;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .preview-header h4 {
+            margin: 0;
+            font-size: 1em;
+            color: #495057;
+        }
+        
+        .remove-file-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 5px;
+            line-height: 1;
+        }
+        
+        .remove-file-btn:hover {
+            color: #dc3545;
+        }
+        
+        .preview-content {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+        }
+        
+        .file-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        
+        .file-details {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            word-break: break-all;
+        }
+        
+        .file-size {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+        
+        .file-type {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
     </style>
    
 
@@ -228,10 +366,27 @@
                     <div class="upload-icon">📎</div>
                     <div class="upload-text">Drop files here</div>
                     <div class="upload-text">or click to upload</div>
-                    <input type="file" name="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.gif" class="hidden-input">
+                    <input type="file" name="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.gif" class="hidden-input" style="display: none;">
                 </div>
                 <div id="selectedFile" class="selected-file"></div>
             </div>
+            
+            <!-- File Preview Container -->
+            <div id="filePreviewContainer" class="file-preview-container" style="display: none;">
+                <div class="preview-header">
+                    <h4>File Ready for Conversion</h4>
+                    <button id="removeFileBtn" class="remove-file-btn">×</button>
+                </div>
+                <div class="preview-content">
+                    <div class="file-icon">📄</div>
+                    <div class="file-details">
+                        <div id="fileName" class="file-name">document.pdf</div>
+                        <div id="fileSize" class="file-size">0 KB</div>
+                        <div class="file-type">PDF Document</div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label for="outputFormat">Convert to:</label>
                 <select id="outputFormat" name="output_format">
@@ -246,6 +401,100 @@
         <div id="message" class="message"></div>
         <button id="downloadButton" class="download-button">Download Converted File</button>
         <button id="shareButton" class="share-button">Share This Tool</button>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="seo-content">
+        <div class="seo-container">
+            <div class="seo-category">
+                <h2>File Conversion Tools</h2>
+                <p>Our <strong>PDF to Word</strong> converter belongs to the document conversion category, helping users transform document formats efficiently.</p>
+            </div>
+            
+            <div class="seo-tags">
+                <h3>Popular Conversion Types:</h3>
+                <div class="tag-cloud">
+                    <span class="tag">PDF to Word</span>
+                    <span class="tag">Document Conversion</span>
+                    <span class="tag">Free PDF Converter</span>
+                    <span class="tag">Online PDF Tools</span>
+                    <span class="tag">PDF Editor</span>
+                </div>
+            </div>
+            
+            <div class="seo-summary">
+                <h3>Summary</h3>
+                <p>Our free <strong>PDF to Word</strong> converter transforms PDF documents into editable Word files instantly. No registration, installation, or watermarks - just upload and convert.</p>
+            </div>
+            
+            <div class="seo-what-is">
+                <h3>What is PDF to Word Conversion?</h3>
+                <p><strong>PDF to Word</strong> conversion is the process of transforming PDF documents into editable Microsoft Word format (DOCX). PDFs are designed for consistent viewing but are difficult to edit. Converting <strong>PDF to Word</strong> allows you to modify text, images, and formatting in familiar word processing software. Unlike most online converters, our tool supports OCR technology, which allows you to convert scanned PDFs to real editable Word documents rather than images of paragraphs that pasted in the word document.</p>
+            </div>
+            
+            <div class="seo-how-to">
+                <h3>How to Use Our PDF to Word Converter</h3>
+                <ol>
+                    <li>Upload your PDF file using the drag-and-drop area above</li>
+                    <li>Select "Word (DOCX)" as your output format</li>
+                    <li>Click "Upload and Convert" to process your file</li>
+                    <li>Download your converted Word document</li>
+                </ol>
+                <p>The entire <strong>PDF to Word</strong> conversion process takes just seconds, with no software installation required.</p>
+            </div>
+            
+            <div class="seo-features">
+                <h3>Features of Our PDF to Word Converter</h3>
+                <ul>
+                    <li><strong>High Accuracy:</strong> Our <strong>PDF to Word</strong> converter maintains original formatting, fonts, and images</li>
+                    <li><strong>OCR Technology:</strong> Convert scanned PDFs to editable Word documents</li>
+                    <li><strong>Batch Processing:</strong> Convert multiple PDF files to Word format at once</li>
+                    <li><strong>Privacy Protection:</strong> All files are automatically deleted after conversion</li>
+                    <li><strong>No Registration:</strong> Use our <strong>PDF to Word</strong> tool without creating an account</li>
+                </ul>
+            </div>
+            
+            <div class="seo-use-cases">
+                <h3>Use Cases of PDF to Word Conversion</h3>
+                <ul>
+                    <li><strong>Students:</strong> Edit PDF assignments and research papers</li>
+                    <li><strong>Professionals:</strong> Modify business documents and contracts</li>
+                    <li><strong>Writers:</strong> Extract content from PDFs for editing</li>
+                    <li><strong>Job Seekers:</strong> Update PDF resumes in Word format</li>
+                    <li><strong>Researchers:</strong> Edit and annotate PDF research papers</li>
+                </ul>
+                <p>Our <strong>PDF to Word</strong> converter is the perfect solution for anyone needing to edit PDF content.</p>
+            </div>
+            
+            <div class="seo-faq">
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <h4>Is your PDF to Word converter really free?</h4>
+                    <p>Yes, our <strong>PDF to Word</strong> converter is completely free with no hidden costs or watermarks.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>How accurate is the PDF to Word conversion?</h4>
+                    <p>Our converter maintains high accuracy for text, images, and formatting when converting <strong>PDF to Word</strong>.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Are my files secure when using your PDF to Word tool?</h4>
+                    <p>Absolutely. All files are automatically deleted after conversion, and we never store your documents.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Can I convert password-protected PDFs to Word?</h4>
+                    <p>You'll need to remove the password protection before using our <strong>PDF to Word</strong> converter.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>What's the maximum file size for PDF to Word conversion?</h4>
+                    <p>Our tool supports PDF files up to 200MB for conversion to Word format.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Features Section -->
@@ -283,21 +532,51 @@
         document.getElementById('fileInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             const selectedFileDiv = document.getElementById('selectedFile');
+            const filePreviewContainer = document.getElementById('filePreviewContainer');
             
             if (file && file.size > MAX_FILE_SIZE) {
                 updateMessage('error', 'File size exceeds 200MB limit');
                 this.value = ''; // Clear the file input
                 selectedFileDiv.style.display = 'none';
+                filePreviewContainer.style.display = 'none';
                 return;
             }
             
             if (file) {
-                selectedFileDiv.textContent = `Selected file: ${file.name}`;
-                selectedFileDiv.style.display = 'block';
+                // Update the file preview container
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileSize').textContent = formatFileSize(file.size);
+                
+                // Show file preview container and hide the simple text display
+                filePreviewContainer.style.display = 'block';
+                selectedFileDiv.style.display = 'none';
+                
                 updateMessage('info', 'Click "Upload and Convert" to process the file');
             } else {
+                filePreviewContainer.style.display = 'none';
                 selectedFileDiv.style.display = 'none';
             }
+        });
+        
+        // Format file size to human-readable format
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Remove file button handler
+        document.getElementById('removeFileBtn').addEventListener('click', () => {
+            const fileInput = document.getElementById('fileInput');
+            const filePreviewContainer = document.getElementById('filePreviewContainer');
+            
+            fileInput.value = ''; // Clear the file input
+            filePreviewContainer.style.display = 'none';
+            updateMessage('info', 'Please select a file to convert');
         });
 
         // Form submit handler
@@ -411,13 +690,16 @@
             if (e.dataTransfer.files.length) {
                 const file = e.dataTransfer.files[0];
                 fileInput.files = e.dataTransfer.files;
-                const selectedFileDiv = document.getElementById('selectedFile');
                 
-                if (file) {
-                    selectedFileDiv.textContent = `Selected file: ${file.name}`;
-                    selectedFileDiv.style.display = 'block';
-                    updateMessage('info', 'Click "Upload and Convert" to process the file');
-                }
+                // Update the file preview container
+                document.getElementById('fileName').textContent = file.name;
+                document.getElementById('fileSize').textContent = formatFileSize(file.size);
+                
+                // Show file preview container
+                document.getElementById('filePreviewContainer').style.display = 'block';
+                document.getElementById('selectedFile').style.display = 'none';
+                
+                updateMessage('info', 'Click "Upload and Convert" to process the file');
             }
         });
 
