@@ -4,6 +4,7 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /dev/
+Disallow: /upload
 
 # Allow search engines to crawl JavaScript and CSS files
 Allow: *.js

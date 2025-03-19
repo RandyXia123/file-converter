@@ -217,6 +217,13 @@ def upload_file():
             
     return 'Unsupported file type', 400
 
+@app.route('/upload', methods=['GET'])
+def upload_get():
+    # Return a proper response for GET requests to /upload
+    #return render_template('index.html')  # Redirect to home page
+    # Or alternatively:
+     return 'This endpoint only accepts file uploads via POST requests', 200
+
 @app.route('/system-check')
 def system_check():
     try:
